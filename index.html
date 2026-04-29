@@ -30,7 +30,7 @@
 }
 html,body{width:100%;height:100%;background:var(--bg);color:var(--text2);font-family:var(--mono);overflow:hidden}
 #app{display:flex;flex-direction:column;height:100vh}
- 
+
 /* ── HEADER ── */
 #header{
   display:flex;align-items:center;gap:0;
@@ -88,12 +88,12 @@ html,body{width:100%;height:100%;background:var(--bg);color:var(--text2);font-fa
 #clock-block{padding:0 14px;display:flex;flex-direction:column;justify-content:center;gap:2px}
 #utc-clock{font-size:11px;color:var(--text3);letter-spacing:.08em}
 #utc-date{font-size:9px;color:var(--muted);letter-spacing:.08em}
- 
+
 /* ── MAIN ── */
 #main{display:flex;flex:1;overflow:hidden}
 #canvas-wrap{flex:1;position:relative;overflow:hidden;background:#060a0d}
 canvas{display:block;width:100%;height:100%}
- 
+
 /* ── HUD TOP LEFT ── */
 #hud{position:absolute;top:16px;left:16px;pointer-events:none}
 .hud-block{margin-bottom:12px}
@@ -101,15 +101,15 @@ canvas{display:block;width:100%;height:100%}
 .hud-val{font-size:20px;color:var(--text3);letter-spacing:.05em;line-height:1}
 .hud-unit{font-size:9px;color:var(--muted);margin-left:3px}
 .hud-sub{font-size:9px;color:var(--muted);margin-top:2px;letter-spacing:.08em}
- 
+
 /* ── CROSSHAIR / RETICLE ── */
 #reticle{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);pointer-events:none;opacity:.25}
- 
+
 /* ── LEGEND ── */
 #legend{position:absolute;top:16px;right:16px;pointer-events:none;display:flex;flex-direction:column;gap:6px}
 .leg-row{display:flex;align-items:center;gap:7px;font-size:9px;letter-spacing:.08em;color:var(--muted)}
 .leg-color{width:16px;height:1px;flex-shrink:0}
- 
+
 /* ── INFO PANEL (right side, Anduril-style) ── */
 #info-panel{
   width:280px;flex-shrink:0;
@@ -125,7 +125,7 @@ canvas{display:block;width:100%;height:100%}
 }
 #ip-header-label{font-size:8px;letter-spacing:.15em;color:var(--muted)}
 #ip-header-count{font-size:10px;color:var(--accent)}
- 
+
 /* Selected object card */
 #ip-selected{border-bottom:1px solid var(--border);display:none}
 #ip-sel-top{padding:12px 16px 10px;border-bottom:1px solid var(--border2)}
@@ -145,7 +145,7 @@ canvas{display:block;width:100%;height:100%}
 .ip-val.hi{color:var(--text3)}
 #ip-close{cursor:pointer;color:var(--muted);font-size:11px;line-height:1;padding:2px 4px}
 #ip-close:hover{color:var(--text3)}
- 
+
 /* Sat list */
 #ip-list-wrap{flex:1;overflow-y:auto;min-height:0}
 #ip-list-wrap::-webkit-scrollbar{width:2px}
@@ -163,7 +163,7 @@ canvas{display:block;width:100%;height:100%}
 .sat-name{font-size:10px;flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:var(--text)}
 .sat-alt{font-size:9px;color:var(--muted);white-space:nowrap}
 #ip-footer{padding:7px 16px;border-top:1px solid var(--border);font-size:9px;color:var(--muted);letter-spacing:.06em}
- 
+
 /* ── TOOLTIP ── */
 #tooltip{
   position:absolute;display:none;pointer-events:none;
@@ -174,7 +174,7 @@ canvas{display:block;width:100%;height:100%}
 #tt-name{font-size:10px;font-weight:500;color:var(--text3);margin-bottom:4px;letter-spacing:.08em}
 .tt-row{display:flex;justify-content:space-between;gap:14px}
 .tt-l{color:var(--muted)}.tt-v{color:var(--text2)}
- 
+
 /* ── BOTTOM STATUS BAR ── */
 #statusbar{
   position:absolute;bottom:0;left:0;right:0;
@@ -186,7 +186,7 @@ canvas{display:block;width:100%;height:100%}
 .sb-item{display:flex;align-items:center;gap:5px}
 .sb-dot{width:5px;height:5px;border-radius:50%;background:var(--green);animation:pulse 2s infinite}
 @keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
- 
+
 @media(max-width:800px){#info-panel{display:none}#header{height:auto;min-height:42px;flex-wrap:wrap}}
 </style>
 </head>
@@ -220,11 +220,11 @@ canvas{display:block;width:100%;height:100%}
       </div>
     </div>
   </div>
- 
+
   <div id="main">
     <div id="canvas-wrap">
       <canvas id="globe"></canvas>
- 
+
       <div id="hud">
         <div class="hud-block">
           <div class="hud-label">TRACKED OBJECTS</div>
@@ -235,7 +235,7 @@ canvas{display:block;width:100%;height:100%}
           <div class="hud-val"><span id="hud-orbits">0</span><span class="hud-unit">TRK</span></div>
         </div>
       </div>
- 
+
       <div id="legend">
         <div class="leg-row"><div class="leg-color" style="background:#00e87a"></div>STATIONS</div>
         <div class="leg-row"><div class="leg-color" style="background:#00d4ff"></div>WEATHER</div>
@@ -245,7 +245,7 @@ canvas{display:block;width:100%;height:100%}
         <div class="leg-row"><div class="leg-color" style="background:#f57c20"></div>SCIENCE</div>
         <div class="leg-row"><div class="leg-color" style="background:#f53d3d"></div>DEBRIS</div>
       </div>
- 
+
       <!-- Tooltip -->
       <div id="tooltip">
         <div id="tt-name"></div>
@@ -254,7 +254,7 @@ canvas{display:block;width:100%;height:100%}
         <div class="tt-row"><span class="tt-l">LAT/LON</span><span class="tt-v" id="tt-ll">—</span></div>
         <div class="tt-row"><span class="tt-l">TYPE</span><span class="tt-v" id="tt-type">—</span></div>
       </div>
- 
+
       <!-- Status bar -->
       <div id="statusbar">
         <div class="sb-item"><div class="sb-dot"></div>LIVE</div>
@@ -263,14 +263,14 @@ canvas{display:block;width:100%;height:100%}
         <div class="sb-item">DRAG: ROTATE &nbsp;·&nbsp; SCROLL: ZOOM &nbsp;·&nbsp; CLICK: SELECT</div>
       </div>
     </div>
- 
+
     <!-- RIGHT PANEL -->
     <div id="info-panel">
       <div id="ip-header">
         <span id="ip-header-label">OBJECT CATALOG</span>
         <span id="ip-header-count">0 OBJ</span>
       </div>
- 
+
       <!-- Selected object detail -->
       <div id="ip-selected">
         <div id="ip-sel-top">
@@ -292,7 +292,7 @@ canvas{display:block;width:100%;height:100%}
           <div class="ip-lbl">LONGITUDE</div><div class="ip-val hi" id="ip-lon">—</div>
           <div class="ip-lbl">ALTITUDE</div><div class="ip-val hi" id="ip-alt">—</div>
           <div class="ip-lbl">VELOCITY</div><div class="ip-val hi" id="ip-vel">—</div>
- 
+
           <div class="ip-sec">ORBITAL ELEMENTS</div>
           <div class="ip-lbl">INCLINATION</div><div class="ip-val" id="ip-inc">—</div>
           <div class="ip-lbl">PERIOD</div><div class="ip-val" id="ip-per">—</div>
@@ -302,7 +302,7 @@ canvas{display:block;width:100%;height:100%}
           <div class="ip-lbl">MEAN MOTION</div><div class="ip-val" id="ip-mm">—</div>
           <div class="ip-lbl">APOGEE</div><div class="ip-val" id="ip-apo">—</div>
           <div class="ip-lbl">PERIGEE</div><div class="ip-val" id="ip-peri">—</div>
- 
+
           <div class="ip-sec">IDENTIFICATION</div>
           <div class="ip-lbl">NORAD ID</div><div class="ip-val" id="ip-norad">—</div>
           <div class="ip-lbl">INTL. DESIG.</div><div class="ip-val" id="ip-intdes">—</div>
@@ -312,19 +312,19 @@ canvas{display:block;width:100%;height:100%}
           <div class="ip-lbl">TLE EPOCH</div><div class="ip-val" id="ip-epoch">—</div>
           <div class="ip-lbl">B* DRAG</div><div class="ip-val" id="ip-bstar">—</div>
           <div class="ip-lbl">REV @ EPOCH</div><div class="ip-val" id="ip-revno">—</div>
- 
+
           <div class="ip-sec">CLASSIFICATION</div>
           <div class="ip-lbl">CATEGORY</div><div class="ip-val" id="ip-group">—</div>
           <div class="ip-lbl">ORBIT CLASS</div><div class="ip-val" id="ip-orbitclass">—</div>
         </div>
       </div>
- 
+
       <div id="ip-list-wrap"><div id="sat-list"></div></div>
       <div id="ip-footer">— / — objects</div>
     </div>
   </div>
 </div>
- 
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/satellite.js/4.0.0/satellite.min.js"></script>
 <script>
@@ -450,7 +450,7 @@ debris:[
 ['ATLAS CENTAUR R/B','1  1998U 65065B   25020.52083333  .00000034  00000-0  35000-4 0  9992','2  1998  28.8678 323.8910 0762345 282.7890  72.3450  3.22578934108345'],
 ]
 };
- 
+
 /* ═══════════════════════════════════
    GROUP CONFIG
 ═══════════════════════════════════ */
@@ -463,7 +463,7 @@ const GROUPS={
   science: { label:'SCIENCE / EO',     typeLabel:'Scientific / Earth Observation',  color:0xf57c20, hex:'#f57c20' },
   debris:  { label:'DEBRIS',           typeLabel:'Space Debris / Rocket Body',      color:0xf53d3d, hex:'#f53d3d' },
 };
- 
+
 function classifyOrbit(alt){
   if(alt<2000)  return{label:'LEO',full:'Low Earth Orbit',    color:'#00e87a'};
   if(alt<8000)  return{label:'MEO',full:'Medium Earth Orbit', color:'#f5c842'};
@@ -478,7 +478,7 @@ function parseIntdes(s){
 function epochFromSatrec(sr){
   try{const y=sr.epochyr,yr=y<57?2000+y:1900+y;const d=new Date(Date.UTC(yr,0,1)+(sr.epochdays-1)*86400000);return d.toISOString().slice(0,10);}catch(e){return'—'}
 }
- 
+
 /* ═══════════════════════════════════
    THREE.JS
 ═══════════════════════════════════ */
@@ -494,14 +494,14 @@ let zoom=3.8,tZoom=3.8;
 let autoRotate=true,lastInteract=0;
 const raycaster=new THREE.Raycaster();
 const mouse=new THREE.Vector2(-9,-9);
- 
+
 function geoToVec3(lat,lon,altKm){
   const r=1+altKm/EARTH_R;
   const phi=(90-lat)*Math.PI/180;
   const lam=lon*Math.PI/180;
   return new THREE.Vector3(r*Math.sin(phi)*Math.sin(lam),r*Math.cos(phi),-r*Math.sin(phi)*Math.cos(lam));
 }
- 
+
 function initScene(){
   const wrap=document.getElementById('canvas-wrap');
   scene=new THREE.Scene();
@@ -515,7 +515,7 @@ function initScene(){
   const sun=new THREE.DirectionalLight(0x6699bb,0.8);sun.position.set(5,3,4);scene.add(sun);
   window.addEventListener('resize',onResize);onResize();
 }
- 
+
 function addStars(){
   const N=6000,pos=new Float32Array(N*3);
   for(let i=0;i<N*3;i+=3){
@@ -531,7 +531,7 @@ function addStars(){
   geo2.setAttribute('position',new THREE.BufferAttribute(pos2,3));
   scene.add(new THREE.Points(geo2,new THREE.PointsMaterial({color:0xffffff,size:.18,transparent:true,opacity:.7})));
 }
- 
+
 function addGlobe(){
   // Dark ocean base
   scene.add(new THREE.Mesh(new THREE.SphereGeometry(1,64,64),
@@ -542,7 +542,7 @@ function addGlobe(){
   scene.add(new THREE.Mesh(new THREE.SphereGeometry(1.06,64,64),
     new THREE.MeshBasicMaterial({color:0x001830,transparent:true,opacity:.04,side:THREE.BackSide})));
 }
- 
+
 function addGraticule(){
   const lm=new THREE.LineBasicMaterial({color:0x0d2035,transparent:true,opacity:.8});
   const em=new THREE.LineBasicMaterial({color:0x102840,transparent:true,opacity:1});
@@ -556,7 +556,7 @@ function addGraticule(){
     scene.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints(pts),lm));
   }
 }
- 
+
 // Simplified continent outlines as lat/lon polylines
 function addCoastlines(){
   const coastMat=new THREE.LineBasicMaterial({color:0x1e3d5a,transparent:true,opacity:.9});
@@ -590,7 +590,7 @@ function addCoastlines(){
     if(pts.length>1) scene.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints(pts),coastMat));
   }
 }
- 
+
 /* ─── PROPAGATION ─────────────────────── */
 function propagate(sat,date){
   if(!sat.satrec)return false;
@@ -613,70 +613,110 @@ function propagate(sat,date){
     return true;
   }catch(e){return false;}
 }
- 
-/* ─── ORBIT LINES (antimeridian-safe) ─── */
+
+/* ─── ORBIT LINES ─────────────────────────────────────────
+   Rendered in ECI space then converted to ECEF at T=now.
+   Each point is propagated at its own future time, converted
+   to geodetic with GMST at that time, then placed via geoToVec3.
+   This is ECEF-correct and has zero antimeridian artifacts.
+───────────────────────────────────────────────────────── */
 function buildOrbitLine(sat,color){
   if(!sat.satrec)return null;
   const now=Date.now();
   const period=(2*Math.PI/sat.satrec.no)*60000;
-  const STEPS=200;
-  const mat=new THREE.LineBasicMaterial({color,transparent:true,opacity:.45});
-  const samples=[];
+  const STEPS=270;
+  const mat=new THREE.LineBasicMaterial({color,transparent:true,opacity:.4,linewidth:1});
+
+  const pts=[];
   for(let i=0;i<=STEPS;i++){
     const t=new Date(now+(i/STEPS)*period);
     try{
       const pv=satellite.propagate(sat.satrec,t);
-      if(!pv||!pv.position)continue;
+      if(!pv||!pv.position||typeof pv.position!=='object')continue;
       const gmst=satellite.gstime(t);
       const gd=satellite.eciToGeodetic(pv.position,gmst);
-      samples.push({lat:satellite.degreesLat(gd.latitude),lon:satellite.degreesLong(gd.longitude),alt:gd.height});
+      if(!isFinite(gd.latitude)||!isFinite(gd.longitude)||!isFinite(gd.height))continue;
+      pts.push(geoToVec3(
+        satellite.degreesLat(gd.latitude),
+        satellite.degreesLong(gd.longitude),
+        gd.height
+      ));
     }catch(e){}
   }
-  if(samples.length<2)return null;
+  if(pts.length<2)return null;
+
+  // Split at antimeridian jumps (>200° lon delta between consecutive points)
   const group=new THREE.Group();
   group.userData.satName=sat.name;
-  let seg=[geoToVec3(samples[0].lat,samples[0].lon,samples[0].alt)];
-  for(let i=1;i<samples.length;i++){
-    if(Math.abs(samples[i].lon-samples[i-1].lon)>200){
-      if(seg.length>=2)group.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints(seg),mat));
-      seg=[geoToVec3(samples[i].lat,samples[i].lon,samples[i].alt)];
+  let seg=[pts[0]];
+  for(let i=1;i<pts.length;i++){
+    // Detect a teleport by checking 3D distance — smooth orbits have small steps
+    const d=pts[i].distanceTo(pts[i-1]);
+    const maxStep=0.3; // in scene units — a jump across the globe is ~2
+    if(d>maxStep){
+      if(seg.length>=2)group.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints(seg),mat.clone()));
+      seg=[pts[i]];
     }else{
-      seg.push(geoToVec3(samples[i].lat,samples[i].lon,samples[i].alt));
+      seg.push(pts[i]);
     }
   }
-  if(seg.length>=2)group.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints(seg),mat));
+  if(seg.length>=2)group.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints(seg),mat.clone()));
   return group.children.length>0?group:null;
 }
- 
-/* ─── SAT MARKERS (chevron sprites) ───── */
-function makeChevronTexture(color){
-  const c=document.createElement('canvas');c.width=32;c.height=32;
+
+/* ─── SAT MARKERS — satellite body + solar panels ───── */
+function makeSatTexture(color){
+  const S=64;
+  const c=document.createElement('canvas');c.width=S;c.height=S;
   const ctx=c.getContext('2d');
-  ctx.strokeStyle=color;ctx.lineWidth=2.5;ctx.lineCap='round';ctx.lineJoin='round';
-  // Chevron arrow pointing up
+  const cx=S/2, cy=S/2;
+  // Glow halo
+  const grd=ctx.createRadialGradient(cx,cy,2,cx,cy,20);
+  grd.addColorStop(0,color+'66');grd.addColorStop(1,color+'00');
+  ctx.fillStyle=grd;ctx.beginPath();ctx.arc(cx,cy,20,0,Math.PI*2);ctx.fill();
+  ctx.strokeStyle=color;ctx.fillStyle=color;ctx.lineCap='round';ctx.lineJoin='round';
+  // Body
+  const bw=8,bh=6;
+  ctx.lineWidth=1.5;
+  ctx.strokeRect(cx-bw/2,cy-bh/2,bw,bh);
+  ctx.fillStyle=color+'33';ctx.fillRect(cx-bw/2+1,cy-bh/2+1,bw-2,bh-2);ctx.fillStyle=color;
+  // Left solar panel
+  ctx.lineWidth=1.2;ctx.strokeRect(cx-bw/2-12,cy-4.5,10,9);
   ctx.beginPath();
-  ctx.moveTo(8,22);ctx.lineTo(16,10);ctx.lineTo(24,22);
+  ctx.moveTo(cx-bw/2-9,cy-4.5);ctx.lineTo(cx-bw/2-9,cy+4.5);
+  ctx.moveTo(cx-bw/2-6,cy-4.5);ctx.lineTo(cx-bw/2-6,cy+4.5);
+  ctx.moveTo(cx-bw/2-12,cy);ctx.lineTo(cx-bw/2-2,cy);
   ctx.stroke();
+  // Right solar panel
+  ctx.strokeRect(cx+bw/2+2,cy-4.5,10,9);
   ctx.beginPath();
-  ctx.moveTo(11,28);ctx.lineTo(16,18);ctx.lineTo(21,28);
+  ctx.moveTo(cx+bw/2+5,cy-4.5);ctx.lineTo(cx+bw/2+5,cy+4.5);
+  ctx.moveTo(cx+bw/2+8,cy-4.5);ctx.lineTo(cx+bw/2+8,cy+4.5);
+  ctx.moveTo(cx+bw/2+2,cy);ctx.lineTo(cx+bw/2+12,cy);
   ctx.stroke();
+  // Antenna
+  ctx.lineWidth=1.2;
+  ctx.beginPath();ctx.arc(cx,cy-bh/2-4,3,Math.PI,0);ctx.stroke();
+  ctx.beginPath();ctx.moveTo(cx,cy-bh/2);ctx.lineTo(cx,cy-bh/2-4);ctx.stroke();
+  // Center dot
+  ctx.beginPath();ctx.arc(cx,cy,1.8,0,Math.PI*2);ctx.fill();
   return new THREE.CanvasTexture(c);
 }
- 
+
 const spriteTextures={};
 function getSpriteTexture(group){
   if(!spriteTextures[group]){
     const cfg=GROUPS[group]||{};
-    spriteTextures[group]=makeChevronTexture(cfg.hex||'#ffffff');
+    spriteTextures[group]=makeSatTexture(cfg.hex||'#ffffff');
   }
   return spriteTextures[group];
 }
- 
+
 /* ─── LOAD ─────────────────────────────── */
 function loadAll(){
   satSprites.forEach(s=>scene.remove(s));satSprites=[];
   clearOrbitLines();satellites=[];
- 
+
   for(const[gKey,cfg] of Object.entries(GROUPS)){
     if(!activeGroups.has(gKey))continue;
     for(const entry of TLE_DB[gKey]||[]){
@@ -702,12 +742,12 @@ function loadAll(){
           peri:Math.round((satrec.a*(1-satrec.ecco)-1)*EARTH_R),
         };
         propagate(sat);
- 
+
         // Use sprite with chevron texture
         const tex=getSpriteTexture(gKey);
         const mat=new THREE.SpriteMaterial({map:tex,transparent:true,opacity:.9,depthTest:false});
         const isLarge=gKey==='starlink'||gKey==='oneweb';
-        const sz=isLarge?0.025:0.035;
+        const sz=isLarge?0.04:0.055;
         const sprite=new THREE.Sprite(mat);
         sprite.scale.set(sz,sz,sz);
         sprite.userData.sat=sat;
@@ -716,20 +756,20 @@ function loadAll(){
       }catch(e){}
     }
   }
- 
+
   // Update group counts
   for(const g of Object.keys(GROUPS)){
     const cnt=satellites.filter(s=>s.group===g).length;
     const el=document.getElementById('cnt-'+g);
     if(el)el.textContent=cnt?` ×${cnt}`:'';
   }
- 
+
   if(showOrbits)rebuildAllOrbits();
   document.getElementById('hud-count').textContent=satellites.length;
   document.getElementById('ip-header-count').textContent=satellites.length+' OBJ';
   renderList();
 }
- 
+
 function rebuildAllOrbits(){
   clearOrbitLines();if(!showOrbits)return;
   let n=0;
@@ -743,12 +783,12 @@ function rebuildAllOrbits(){
   }
   document.getElementById('hud-orbits').textContent=n;
 }
- 
+
 function clearOrbitLines(){
   orbitLines.forEach(g=>scene.remove(g));orbitLines=[];
   document.getElementById('hud-orbits').textContent=0;
 }
- 
+
 /* ─── SELECTION ─────────────────────── */
 function selectSat(sat){
   selectedSat=sat;
@@ -776,7 +816,7 @@ function selectSat(sat){
   }
   fillPanel(sat);renderList();autoRotate=false;
 }
- 
+
 function deselectSat(){
   selectedSat=null;
   orbitLines.forEach(g=>g.children.forEach(l=>l.material.opacity=.45));
@@ -784,7 +824,7 @@ function deselectSat(){
   document.getElementById('ip-selected').style.display='none';
   renderList();
 }
- 
+
 function fillPanel(sat){
   if(!sat){document.getElementById('ip-selected').style.display='none';return;}
   const cfg=GROUPS[sat.group]||{};
@@ -817,9 +857,9 @@ function fillPanel(sat){
   f('ip-group',   cfg.label||sat.group);
   f('ip-orbitclass', `${orbit.label} — ${orbit.full}`);
 }
- 
+
 function f(id,val){const el=document.getElementById(id);if(el)el.textContent=val;}
- 
+
 function updatePanelLive(sat){
   if(!sat)return;
   f('ip-lat', sat.lat!=null?sat.lat.toFixed(5)+'°':'—');
@@ -827,7 +867,7 @@ function updatePanelLive(sat){
   f('ip-alt', sat.altKm?sat.altKm.toFixed(2)+' km':'—');
   f('ip-vel', sat.velKms?sat.velKms.toFixed(4)+' km/s':'—');
 }
- 
+
 /* ─── LIST ───────────────────────────── */
 function renderList(){
   const q=searchQuery.toLowerCase();
@@ -847,7 +887,7 @@ function renderList(){
   const extra=vis.length>500?` +${vis.length-500}`:'';
   document.getElementById('ip-footer').textContent=`${vis.length}${extra} / ${satellites.length} objects`;
 }
- 
+
 /* ─── HOVER ──────────────────────────── */
 let lastHover=null;
 function checkHover(cx,cy){
@@ -879,7 +919,7 @@ function checkHover(cx,cy){
     renderer.domElement.style.cursor=isDragging?'grabbing':'default';
   }
 }
- 
+
 /* ─── EVENTS ─────────────────────────── */
 function attachEvents(){
   const c=renderer.domElement;
@@ -902,7 +942,7 @@ function attachEvents(){
   c.addEventListener('touchstart',e=>{isDragging=true;autoRotate=false;lastInteract=Date.now();if(e.touches.length===1)prevMouse={x:e.touches[0].clientX,y:e.touches[0].clientY};if(e.touches.length===2){const dx=e.touches[0].clientX-e.touches[1].clientX,dy=e.touches[0].clientY-e.touches[1].clientY;lp=Math.sqrt(dx*dx+dy*dy);}},{passive:true});
   c.addEventListener('touchmove',e=>{if(e.touches.length===1&&isDragging){tSph.theta-=(e.touches[0].clientX-prevMouse.x)*.005;tSph.phi=Math.max(.05,Math.min(Math.PI-.05,tSph.phi+(e.touches[0].clientY-prevMouse.y)*.005));prevMouse={x:e.touches[0].clientX,y:e.touches[0].clientY};}if(e.touches.length===2){const dx=e.touches[0].clientX-e.touches[1].clientX,dy=e.touches[0].clientY-e.touches[1].clientY,d=Math.sqrt(dx*dx+dy*dy);tZoom=Math.max(1.2,Math.min(12,tZoom-(d-lp)*.01));lp=d;}e.preventDefault();},{passive:false});
   c.addEventListener('touchend',()=>{isDragging=false});
- 
+
   document.querySelectorAll('.pill[data-group]').forEach(btn=>{
     btn.addEventListener('click',()=>{
       const g=btn.dataset.group;
@@ -924,12 +964,12 @@ function attachEvents(){
   document.getElementById('search').addEventListener('input',e=>{searchQuery=e.target.value;renderList();});
   document.getElementById('ip-close').addEventListener('click',deselectSat);
 }
- 
+
 function onResize(){
   const w=document.getElementById('canvas-wrap');
   camera.aspect=w.clientWidth/w.clientHeight;camera.updateProjectionMatrix();renderer.setSize(w.clientWidth,w.clientHeight);
 }
- 
+
 /* ─── ANIMATE ────────────────────────── */
 let lastProp=0;
 function animate(){
@@ -957,9 +997,8 @@ function animate(){
   }
   renderer.render(scene,camera);
 }
- 
+
 initScene();attachEvents();loadAll();animate();
 </script>
 </body>
 </html>
- 
