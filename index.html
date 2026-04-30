@@ -493,6 +493,8 @@ let sph={theta:.5,phi:1.15},tSph={theta:.5,phi:1.15};
 let zoom=3.8,tZoom=3.8;
 let autoRotate=true,lastInteract=0;
 const raycaster=new THREE.Raycaster();
+raycaster.params.Line={threshold:0.01};
+raycaster.params.Points={threshold:0.02};
 const mouse=new THREE.Vector2(-9,-9);
 
 function geoToVec3(lat,lon,altKm){
@@ -871,9 +873,10 @@ function loadAll(){
         // 3D satellite mesh
         const satMesh = makeSat3D(cfg.color);
         satMesh.userData.sat = sat;
+        // Propagate userData.sat to all children so raycaster hits work
+        satMesh.traverse(c=>{ c.userData.sat = sat; });
         if(sat.pos3d){
           satMesh.position.copy(sat.pos3d);
-          // Orient so satellite "faces" along its orbit (points away from Earth center)
           satMesh.lookAt(0,0,0);
           satMesh.rotateX(Math.PI/2);
         }
@@ -932,7 +935,8 @@ function selectSat(sat){
   }
   // Dim non-selected sprites
   satSprites.forEach(s=>{
-    s.material.opacity=s.userData.sat===sat?1:.3;
+    const op = s.userData.sat===sat ? 1 : 0.25;
+    s.traverse(c=>{ if(c.material) c.material.opacity=op; });
   });
   // Camera
   if(sat.pos3d){
@@ -947,7 +951,7 @@ function selectSat(sat){
 function deselectSat(){
   selectedSat=null;
   orbitLines.forEach(g=>g.children.forEach(l=>l.material.opacity=.45));
-  satSprites.forEach(s=>s.material.opacity=.9);
+  satSprites.forEach(s=>s.traverse(c=>{if(c.material)c.material.opacity=.9;}));
   document.getElementById('ip-selected').style.display='none';
   renderList();
 }
@@ -1023,10 +1027,14 @@ function checkHover(cx,cy){
   mouse.x=((cx-rect.left)/rect.width)*2-1;
   mouse.y=-((cy-rect.top)/rect.height)*2+1;
   raycaster.setFromCamera(mouse,camera);
-  const hits=raycaster.intersectObjects(satSprites);
+  const hits=raycaster.intersectObjects(satSprites, true);
   const tt=document.getElementById('tooltip');
   if(hits.length>0){
-    const sat=hits[0].object.userData.sat;
+    // Walk up from child mesh to the Group that has userData.sat
+    let hitObj=hits[0].object;
+    while(hitObj&&!hitObj.userData.sat&&hitObj.parent) hitObj=hitObj.parent;
+    const sat=hitObj?hitObj.userData.sat:null;
+    if(!sat){ document.getElementById('tooltip').style.display='none'; return; }
     const cfg=GROUPS[sat.group]||{};
     if(sat!==lastHover){
       lastHover=sat;
@@ -1079,8 +1087,12 @@ function attachEvents(){
     const wrap=document.getElementById('canvas-wrap');const rect=wrap.getBoundingClientRect();
     mouse.x=((e.clientX-rect.left)/rect.width)*2-1;mouse.y=-((e.clientY-rect.top)/rect.height)*2+1;
     raycaster.setFromCamera(mouse,camera);
-    const hits=raycaster.intersectObjects(satSprites);
-    if(hits.length>0)selectSat(hits[0].object.userData.sat);
+    const hits=raycaster.intersectObjects(satSprites, true);
+    if(hits.length>0){
+      let ho=hits[0].object;
+      while(ho&&!ho.userData.sat&&ho.parent) ho=ho.parent;
+      if(ho&&ho.userData.sat) selectSat(ho.userData.sat);
+    }
   });
   c.addEventListener('wheel',e=>{tZoom=Math.max(1.2,Math.min(12,tZoom+e.deltaY*.004));autoRotate=false;lastInteract=Date.now();e.preventDefault();},{passive:false});
   let lp=0;
