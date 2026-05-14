@@ -1,4 +1,4 @@
-#  OrbitWatch — Real-Time Satellite Tracker
+#  OrbitWatch — Real-Time Satellite Tracker (broken)
 
 A self-contained, single-file satellite tracker with a 3D interactive globe.
 
